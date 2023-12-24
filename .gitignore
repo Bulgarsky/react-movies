@@ -25,3 +25,9 @@ dist-ssr
 
 #api
 OMDBapi.key
+
+#misc
+.env
+.env.local
+.env.prod
+.env.dev
