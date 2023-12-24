@@ -1,0 +1,18 @@
+footer {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.content{
+    min-height: calc(100vh - 80px - 72px);
+    padding: 1.5rem 0;
+}
+
+.moviePoster{
+    height: 250px;
+}
+
+.moviesList{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+}
