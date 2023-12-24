@@ -1,5 +1,4 @@
 import Movie from "./Movie.jsx";
-import React from "react";
 
 function MoviesList(props){
 
