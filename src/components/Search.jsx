@@ -6,7 +6,7 @@ export default function Search(props){
     const [type, setType] = useState("all");
 
     const {
-        searchMovie= Function.prototype,
+        searchMovie = Function.prototype,
 
     } = props;
 
