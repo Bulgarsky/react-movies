@@ -1,4 +1,4 @@
-# Movies 
+# simple project "Movies" 
 # React + Vite + Bootstrap
 
 used:

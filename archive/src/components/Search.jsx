@@ -1,39 +1,45 @@
-import React, {useState} from "react";
+import React from "react";
 import {Button, InputGroup, Form} from "react-bootstrap";
 
-export default function Search(props){
-    const [search, setSearch] = useState("");
-    const [type, setType] = useState("all");
+class Search extends React.Component{
 
-    const {
-        searchMovie= Function.prototype,
-
-    } = props;
-
-
-    function handleChange(event){
-        setSearch(event.target.value);
+    state = {
+        search: "",
+        type: "all",
     }
 
-    function handleKeyDown(event){
+    handleChange = (event) => {
+        this.setState({search: event.target.value});
+    }
+
+    handleKeyDown = (event) => {
         //проверка: при нажатии на клавишу Enter
         if(event.key === "Enter"){
             //вызвать searchMovie из пропсов(передать значение поля поиска и жанр)
-           searchMovie(search, type);
+           this.props.searchMovie(this.state.search, this.state.type);
         }
     }
 
-   function handleClick(){
+    handleClick = () => {
         //вызвать searchMovie из пропсов(передать значение поля поиска)
-        searchMovie(search, type);
+        this.props.searchMovie(this.state.search, this.state.type);
     }
 
-   function handleFilter(event){
+    handleFilter = (event) => {
         //меняем стейт
-        setType(event.target.dataset.type);
-        searchMovie(search, event.target.dataset.type);
+        this.setState(
+            () => ({type: event.target.dataset.type}),
+            () => {
+                //вызываем метод
+                this.props.searchMovie(this.state.search, this.state.type);
+            }
+        );
+
+
     }
 
+
+    render(){
 
         return(
             <>
@@ -44,14 +50,14 @@ export default function Search(props){
                         aria-describedby="basic-addon2"
                         className="search"
                         type="search"
-                        value={search}
-                        onChange={handleChange}
-                        onKeyDown={handleKeyDown}
+                        value={this.state.value}
+                        onChange={this.handleChange}
+                        onKeyDown={this.handleKeyDown}
                     />
                     <Button
                         variant="outline-secondary"
                         id="button-addon2"
-                        onClick={handleClick}>
+                        onClick={this.handleClick}>
                         Search
                     </Button>
                 </InputGroup>
@@ -63,8 +69,8 @@ export default function Search(props){
                     name="genre"
                     type="radio"
                     data-type="all"
-                    onChange={handleFilter}
-                    checked={type === "all"}
+                    onChange={this.handleFilter}
+                    checked={this.state.type === "all"}
                 />
                 <Form.Check
                     inline
@@ -72,8 +78,8 @@ export default function Search(props){
                     name="genre"
                     type="radio"
                     data-type="movie"
-                    onChange={handleFilter}
-                    checked={type === "movie"}
+                    onChange={this.handleFilter}
+                    checked={this.state.type === "movie"}
                 />
                 <Form.Check
                     inline
@@ -81,8 +87,8 @@ export default function Search(props){
                     name="genre"
                     type="radio"
                     data-type="series"
-                    onChange={handleFilter}
-                    checked={type === "series"}
+                    onChange={this.handleFilter}
+                    checked={this.state.type === "series"}
                 />
                 <Form.Check
                     inline
@@ -90,14 +96,15 @@ export default function Search(props){
                     name="genre"
                     type="radio"
                     data-type="game"
-                    onChange={handleFilter}
-                    checked={type === "game"}
+                    onChange={this.handleFilter}
+                    checked={this.state.type === "game"}
                 />
                 </InputGroup>
                 <br />
                 <br />
             </>
         )
+    }
 }
 
 export {Search};
